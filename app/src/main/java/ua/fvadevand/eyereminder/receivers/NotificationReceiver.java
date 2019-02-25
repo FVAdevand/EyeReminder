@@ -31,6 +31,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 }
                 break;
             case ACTION_STOP_REMINDER:
+                Utils.cancelAlarm(context);
                 NotificationUtils.cancelNotification(context);
                 AppPrefs.removeNextReminderInMillis(context);
         }

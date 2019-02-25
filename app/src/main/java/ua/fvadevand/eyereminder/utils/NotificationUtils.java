@@ -26,6 +26,8 @@ public class NotificationUtils {
         String description = context.getString(R.string.reminder_channel_description);
         NotificationChannel channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
         channel.setDescription(description);
+        channel.enableLights(true);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
     }
@@ -34,7 +36,6 @@ public class NotificationUtils {
         Notification.Builder notificationBuilder = new Notification.Builder(context, context.getString(R.string.reminder_channel_id))
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getText(R.string.notification_title))
-                .setVisibility(Notification.VISIBILITY_PRIVATE)
                 .setSmallIcon(R.drawable.ic_monitor)
                 .addAction(getStopAction(context));
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

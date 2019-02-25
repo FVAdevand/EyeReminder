@@ -15,7 +15,7 @@
 
     <string name="action_stop">Stop</string>
 
-    <string name="message_error_minimum_time">Time must be more than 15 minutes</string>
+    <string name="message_error_minimum_time">Time must be more than %d minutes</string>
 
     <string name="utils_format_time_24h">HH:mm</string>
     <string name="utils_format_time_12h">h:mm a</string>

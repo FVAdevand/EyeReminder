@@ -2,7 +2,6 @@ package ua.fvadevand.eyereminder.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +21,7 @@ import ua.fvadevand.eyereminder.utils.Utils;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final int MINIMUM_MINUTE_REMINDER = 1;
+    private static final int MINIMUM_MINUTE_REMINDER = 15;
     private NumberPicker mHourNumPicker;
     private NumberPicker mMinuteNumPicker;
     private Button mStartBtn;
@@ -68,12 +67,7 @@ public class MainActivity extends AppCompatActivity
         mHourNumPicker.setMinValue(0);
         mHourNumPicker.setMaxValue(23);
         mHourNumPicker.setValue(1);
-        NumberPicker.Formatter formatter = new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return String.format(Locale.getDefault(), "%02d", value);
-            }
-        };
+        NumberPicker.Formatter formatter = value -> String.format(Locale.getDefault(), "%02d", value);
         mHourNumPicker.setFormatter(formatter);
         mMinuteNumPicker.setMinValue(0);
         mMinuteNumPicker.setMaxValue(59);
@@ -106,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         int hour = mHourNumPicker.getValue();
         long periodInMillis = TimeUnit.HOURS.toMinutes(hour) + mMinuteNumPicker.getValue();
         if (periodInMillis < MINIMUM_MINUTE_REMINDER) {
-            showSnackbar(R.string.message_error_minimum_time, Snackbar.LENGTH_SHORT);
+            showSnackbar(getString(R.string.message_error_minimum_time, MINIMUM_MINUTE_REMINDER), Snackbar.LENGTH_SHORT);
             mMinuteNumPicker.setValue(15);
             return;
         }
@@ -122,14 +116,10 @@ public class MainActivity extends AppCompatActivity
         NotificationUtils.cancelNotification(getApplicationContext());
     }
 
-    private void showSnackbar(@StringRes int textResId, int duration) {
-        Snackbar snackbar = Snackbar.make(mContainer, textResId, duration);
+    private void showSnackbar(String text, int duration) {
+        Snackbar snackbar = Snackbar.make(mContainer, text, duration);
         if (duration == Snackbar.LENGTH_INDEFINITE) {
-            snackbar.setAction(android.R.string.ok, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
+            snackbar.setAction(android.R.string.ok, v -> {
             });
         }
         snackbar.show();
