@@ -36,7 +36,7 @@ public class NotificationUtils {
         Notification.Builder notificationBuilder = new Notification.Builder(context, context.getString(R.string.reminder_channel_id))
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getText(R.string.notification_title))
-                .setSmallIcon(R.drawable.ic_monitor)
+                .setSmallIcon(R.drawable.ic_monitor_monocolor)
                 .addAction(getStopAction(context));
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
