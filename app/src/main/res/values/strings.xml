@@ -5,7 +5,7 @@
     <string name="reminder_channel_id" translatable="false">reminder_channel</string>
     <string name="reminder_channel_name">Reminders</string>
     <string name="reminder_channel_description">Reminders</string>
-    <string name="notification_title">Take a break from the monitor</string>
+    <string name="notification_text">Take a break from the monitor.\nThe next alarm at %s</string>
 
     <string name="btn_start">Start</string>
     <string name="btn_stop">Stop</string>

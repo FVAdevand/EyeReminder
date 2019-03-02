@@ -26,7 +26,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     long nextTimeInMillis = Utils.convertPeriodInNextTime(periodInMillis);
                     Utils.setAlarm(context, nextTimeInMillis);
                     AppPrefs.saveNextReminderInMillis(context, nextTimeInMillis);
-                    NotificationUtils.showNotification(context);
+                    NotificationUtils.showNotification(context, nextTimeInMillis);
                 }
                 break;
             case ACTION_STOP_REMINDER:

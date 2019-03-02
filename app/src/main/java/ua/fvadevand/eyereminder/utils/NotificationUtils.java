@@ -25,23 +25,32 @@ public class NotificationUtils {
         channel.enableLights(true);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.createNotificationChannel(channel);
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
-    public static void showNotification(Context context) {
+    public static void showNotification(Context context, long nextReminderTime) {
+        String contentText = context.getString(R.string.notification_text, Utils.formatTime(context, nextReminderTime));
         Notification.Builder notificationBuilder = new Notification.Builder(context, context.getString(R.string.reminder_channel_id))
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getText(R.string.notification_title))
+                .setContentText(contentText)
+                .setStyle(new Notification.BigTextStyle().bigText(contentText))
                 .setSmallIcon(R.drawable.ic_monitor_monocolor)
+                .setShowWhen(true)
                 .addAction(getRestartAction(context))
                 .addAction(getStopAction(context));
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+        if (notificationManager != null) {
+            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+        }
     }
 
     public static void cancelNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(NOTIFICATION_ID);
+        if (notificationManager != null) {
+            notificationManager.cancel(NOTIFICATION_ID);
+        }
     }
 
     private static Notification.Action getStopAction(Context context) {
