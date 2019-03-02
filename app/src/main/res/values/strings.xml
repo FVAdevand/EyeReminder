@@ -14,6 +14,7 @@
     <string name="label_reminder_not_set">Reminders not set</string>
 
     <string name="action_stop">Stop</string>
+    <string name="action_restart">Restart</string>
 
     <string name="message_error_minimum_time">Time must be more than %d minutes</string>
 

@@ -2,11 +2,9 @@ package ua.fvadevand.eyereminder.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -39,26 +37,31 @@ public class Utils {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                 nextTimeInMillis,
-                getPendingIntent(context));
-        Log.i(TAG, "setAlarm: ");
+                getStartPendingIntent(context));
     }
 
     public static void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(getPendingIntent(context));
-        Log.i(TAG, "cancelAlarm: ");
+        alarmManager.cancel(getStartPendingIntent(context));
     }
 
     public static long convertPeriodInNextTime(long periodInMillis) {
         return System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(periodInMillis);
     }
 
-    private static PendingIntent getPendingIntent(Context context) {
+    public static PendingIntent getStartPendingIntent(Context context) {
+        return PendingIntent.getBroadcast(context,
+                1,
+                new Intent(NotificationReceiver.ACTION_START_REMINDER)
+                        .setComponent(NotificationReceiver.getComponentName(context)),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public static PendingIntent getStopPendingIntent(Context context) {
         return PendingIntent.getBroadcast(context,
                 2,
-                new Intent(NotificationReceiver.ACTION_START_REMINDER)
-                        .setComponent(new ComponentName(context.getPackageName(),
-                                "ua.fvadevand.eyereminder.receivers.NotificationReceiver")),
+                new Intent(NotificationReceiver.ACTION_STOP_REMINDER)
+                        .setComponent(NotificationReceiver.getComponentName(context)),
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
