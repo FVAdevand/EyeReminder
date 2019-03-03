@@ -10,7 +10,7 @@ import ua.fvadevand.eyereminder.R;
 
 public class NotificationUtils {
 
-    private static int NOTIFICATION_ID = 147;
+    private static final int NOTIFICATION_ID = 147;
 
     private NotificationUtils() {
         //no instance
@@ -55,14 +55,14 @@ public class NotificationUtils {
 
     private static Notification.Action getStopAction(Context context) {
         return new Notification.Action.Builder(Icon.createWithResource(context, R.drawable.ic_close),
-                context.getString(R.string.action_stop),
+                context.getString(R.string.notification_action_stop),
                 Utils.getStopPendingIntent(context))
                 .build();
     }
 
     private static Notification.Action getRestartAction(Context context) {
         return new Notification.Action.Builder(Icon.createWithResource(context, R.drawable.ic_restart),
-                context.getString(R.string.action_restart),
+                context.getString(R.string.notification_action_restart),
                 Utils.getStartPendingIntent(context))
                 .build();
     }

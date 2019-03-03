@@ -5,18 +5,22 @@
     <string name="reminder_channel_id" translatable="false">reminder_channel</string>
     <string name="reminder_channel_name">Reminders</string>
     <string name="reminder_channel_description">Reminders</string>
+
     <string name="notification_text">Take a break from the monitor.\nThe next alarm at %s</string>
+    <string name="notification_action_stop">Stop</string>
+    <string name="notification_action_restart">Restart</string>
 
     <string name="btn_start">Start</string>
     <string name="btn_stop">Stop</string>
     <string name="btn_restart">Restart</string>
     <string name="label_next_reminder">Next reminder</string>
     <string name="label_reminder_not_set">Reminders not set</string>
+    <string name="label_period_picker">Set up reminders period</string>
+    <string name="label_start_time_picker">Start time reminders</string>
+    <string name="default_start_time_picker">Start now</string>
 
-    <string name="action_stop">Stop</string>
-    <string name="action_restart">Restart</string>
-
-    <string name="message_error_minimum_time">Time must be more than %d minutes</string>
+    <string name="message_error_period_time">The time must be more than %d minutes</string>
+    <string name="message_error_start_time">The time must be more than the current</string>
 
     <string name="utils_format_time_24h">HH:mm</string>
     <string name="utils_format_time_12h">h:mm a</string>

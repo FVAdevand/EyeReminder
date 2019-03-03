@@ -14,6 +14,11 @@ public class NotificationReceiver extends BroadcastReceiver {
     public static final String ACTION_STOP_REMINDER = "ua.fvadevand.eyereminder.STOP_REMINDER";
     public static final String ACTION_START_REMINDER = "ua.fvadevand.eyereminder.START_REMINDER";
 
+    public static ComponentName getComponentName(Context context) {
+        return new ComponentName(context.getPackageName(),
+                NotificationReceiver.class.getName());
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -34,10 +39,5 @@ public class NotificationReceiver extends BroadcastReceiver {
                 NotificationUtils.cancelNotification(context);
                 AppPrefs.removeNextReminderInMillis(context);
         }
-    }
-
-    public static ComponentName getComponentName(Context context) {
-        return new ComponentName(context.getPackageName(),
-                NotificationReceiver.class.getName());
     }
 }

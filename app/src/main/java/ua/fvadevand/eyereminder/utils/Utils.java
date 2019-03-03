@@ -16,8 +16,6 @@ import ua.fvadevand.eyereminder.receivers.NotificationReceiver;
 
 public class Utils {
 
-    private static final String TAG = "Utils";
-
     private Utils() {
         //no instance
     }
@@ -33,6 +31,18 @@ public class Utils {
         return timeFormat.format(timeInMillis);
     }
 
+    public static int getHoursFromPeriod(long periodInMinutes) {
+        return (int) TimeUnit.MINUTES.toHours(periodInMinutes);
+    }
+
+    public static int getMinutesFromPeriod(long periodInMinutes) {
+        return (int) (periodInMinutes - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours(periodInMinutes)));
+    }
+
+    public static long convertPeriodInNextTime(long periodInMinutes) {
+        return System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(periodInMinutes);
+    }
+
     public static void setAlarm(Context context, long nextTimeInMillis) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
@@ -43,10 +53,6 @@ public class Utils {
     public static void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(getStartPendingIntent(context));
-    }
-
-    public static long convertPeriodInNextTime(long periodInMillis) {
-        return System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(periodInMillis);
     }
 
     public static PendingIntent getStartPendingIntent(Context context) {

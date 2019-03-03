@@ -3,5 +3,7 @@
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#FF5722</color>
-    <color name="colorBackgroundLauncher">#ffecb3</color>
+    <color name="colorBackgroundBorder">#4fa5d5</color>
+    <color name="colorBackgroundLauncherIcon">#ffecb3</color>
+
 </resources>
