@@ -11,17 +11,22 @@ android {
         versionName "1.0.3"
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-                def buildName = env.getOrDefault('BUILD_FILE_NAME', "eye_reminder_" + variant.versionName + ".apk")
+                def project = "eye_reminder"
+                def SEP = "_"
+                def buildType = variant.variantData.variantConfiguration.buildType.name
+                def version = variant.versionName
+                def date = new Date()
+                def formattedDate = date.format('ddMMyy_HHmm')
+                def buildName = env.getOrDefault('BUILD_FILE_NAME', project + SEP + version + SEP + buildType + SEP + formattedDate + ".apk")
                 outputFileName = buildName
             }
         }
     }
     buildTypes {
         debug {
-            versionNameSuffix "_debug"
+            minifyEnabled false
         }
         release {
-            versionNameSuffix "_release"
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
