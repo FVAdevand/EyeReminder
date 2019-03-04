@@ -38,6 +38,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 Utils.cancelAlarm(context);
                 NotificationUtils.cancelNotification(context);
                 AppPrefs.removeNextReminderInMillis(context);
+                AppPrefs.savePeriodReminderInMinutes(context, 0);
         }
     }
 }
