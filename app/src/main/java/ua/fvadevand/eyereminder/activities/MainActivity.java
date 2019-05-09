@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import ua.fvadevand.eyereminder.EyeReminderApp;
 import ua.fvadevand.eyereminder.R;
 import ua.fvadevand.eyereminder.utils.AppPrefs;
 import ua.fvadevand.eyereminder.utils.NotificationUtils;
@@ -43,15 +44,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initView();
         setupPeriodPickers();
-        mSharedPref = AppPrefs.getSharedPref(getApplicationContext());
-        displayPeriod(AppPrefs.getPeriodReminderInMinutes(getApplicationContext()));
+        mSharedPref = EyeReminderApp.getAppPrefs().getSharedPref();
+        displayPeriod(EyeReminderApp.getAppPrefs().getPeriodReminderInMinutes());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mSharedPref.registerOnSharedPreferenceChangeListener(this);
-        displayNextReminderTime(AppPrefs.getNextReminderInMillis(getApplicationContext()));
+        displayNextReminderTime(EyeReminderApp.getAppPrefs().getNextReminderInMillis());
         displayStartTime();
     }
 
@@ -122,15 +123,15 @@ public class MainActivity extends AppCompatActivity
             nextTimeInMillis = Utils.convertPeriodInNextTime(periodInMinutes);
         }
         Utils.setAlarm(getApplicationContext(), nextTimeInMillis);
-        AppPrefs.savePeriodReminderInMinutes(getApplicationContext(), periodInMinutes);
-        AppPrefs.saveNextReminderInMillis(getApplicationContext(), nextTimeInMillis);
+        EyeReminderApp.getAppPrefs().savePeriodReminderInMinutes(periodInMinutes);
+        EyeReminderApp.getAppPrefs().saveNextReminderInMillis(nextTimeInMillis);
         displayStartTime();
     }
 
     private void stopReminder() {
         Utils.cancelAlarm(getApplicationContext());
-        AppPrefs.removeNextReminderInMillis(getApplicationContext());
-        AppPrefs.savePeriodReminderInMinutes(getApplicationContext(), 0);
+        EyeReminderApp.getAppPrefs().removeNextReminderInMillis();
+        EyeReminderApp.getAppPrefs().savePeriodReminderInMinutes(0);
         NotificationUtils.cancelNotification(getApplicationContext());
         mStartTimeInMillis = 0;
         displayStartTime();

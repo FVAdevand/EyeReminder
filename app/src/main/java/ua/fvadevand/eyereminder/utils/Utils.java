@@ -45,7 +45,8 @@ public class Utils {
 
     public static void setAlarm(Context context, long nextTimeInMillis) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+        alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
                 nextTimeInMillis,
                 getStartPendingIntent(context));
     }

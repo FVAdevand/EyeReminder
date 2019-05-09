@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import ua.fvadevand.eyereminder.utils.AppPrefs;
+import ua.fvadevand.eyereminder.EyeReminderApp;
 import ua.fvadevand.eyereminder.utils.NotificationUtils;
 import ua.fvadevand.eyereminder.utils.Utils;
 
@@ -25,20 +25,21 @@ public class NotificationReceiver extends BroadcastReceiver {
         if (action == null) return;
         switch (action) {
             case ACTION_START_REMINDER:
+                Utils.cancelAlarm(context);
                 NotificationUtils.cancelNotification(context);
-                long periodInMillis = AppPrefs.getPeriodReminderInMinutes(context);
+                long periodInMillis = EyeReminderApp.getAppPrefs().getPeriodReminderInMinutes();
                 if (periodInMillis > 0) {
                     long nextTimeInMillis = Utils.convertPeriodInNextTime(periodInMillis);
                     Utils.setAlarm(context, nextTimeInMillis);
-                    AppPrefs.saveNextReminderInMillis(context, nextTimeInMillis);
+                    EyeReminderApp.getAppPrefs().saveNextReminderInMillis(nextTimeInMillis);
                     NotificationUtils.showNotification(context, nextTimeInMillis);
                 }
                 break;
             case ACTION_STOP_REMINDER:
                 Utils.cancelAlarm(context);
                 NotificationUtils.cancelNotification(context);
-                AppPrefs.removeNextReminderInMillis(context);
-                AppPrefs.savePeriodReminderInMinutes(context, 0);
+                EyeReminderApp.getAppPrefs().removeNextReminderInMillis();
+                EyeReminderApp.getAppPrefs().savePeriodReminderInMinutes(0);
         }
     }
 }
